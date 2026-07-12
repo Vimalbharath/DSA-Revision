@@ -2,7 +2,7 @@ n=12345
 console.log(n)
 
 digits=Math.log10(n)+1
-console.log(digits)
+console.log(Math.floor(digits))
 
 a="abcde"
 console.log(a)

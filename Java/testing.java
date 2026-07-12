@@ -5,8 +5,8 @@ public class testing {
     public static void main(String[] args) {
         int n = 12345;
         System.out.println(n);
-        // double digit = Math.log10(n) + 1;
-        // System.out.println(digit);
+        int digit = (int) Math.log10(n) + 1;
+        System.out.println(digit);
 
         String a = "abcde";
         System.out.println(a);
