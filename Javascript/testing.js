@@ -7,7 +7,7 @@ console.log(Math.floor(digits))
 a="abcde"
 console.log(a)
 console.log(a[2])
-//console.log(a.startswith('ab'))
+console.log(a.startsWith('ab'))
 
 list=[]
 list[0]=1
