@@ -48,7 +48,7 @@ public:
             node->right = insert(val, node->right);
         }
         node->height = max(height(node->left), height(node->left)) + 1;
-        return node;
+        return rotate(node);
     }
 
     bool balanced()
@@ -63,6 +63,63 @@ public:
             return true;
         }
         return abs(height(node->left) - height(node->right)) <= 1 && balanced(node->left) && balanced(node->right);
+    }
+
+    Node *rotate(Node *node)
+    {
+
+        if ((height(node->left) - height(node->right)) > 1)
+        {
+            if ((height(node->left->left) - height(node->left->right)) > 0)
+            {
+                return rotateRight(node);
+            }
+            else
+            {
+                node->left = rotateLeft(node->left);
+                return rotateRight(node);
+            }
+        }
+
+        if ((height(node->left) - height(node->right)) < -1)
+        {
+            if ((height(node->right->right) - height(node->right->left)) > 0)
+            {
+                return rotateLeft(node);
+            }
+            else
+            {
+                node->right = rotateRight(node->right);
+                return rotateLeft(node);
+            }
+        }
+        return node;
+    }
+
+    Node *rotateRight(Node *node)
+    {
+        Node *p = node;
+        Node *c = p->left;
+        Node *temp = c->right;
+        c->right = p;
+        p->left = temp;
+        p->height = max(height(p->left), height(p->right)) + 1;
+        c->height = max(height(c->left), height(c->right)) + 1;
+        return c;
+    }
+
+    Node *rotateLeft(Node *node)
+    {
+        Node *c = node;
+        Node *p = c->right;
+        Node *temp = p->left;
+
+        p->left = c;
+        c->right = temp;
+
+        p->height = max(height(p->left), height(p->right)) + 1;
+        c->height = max(height(c->left), height(c->right)) + 1;
+        return p;
     }
 
     void insert(int val)
