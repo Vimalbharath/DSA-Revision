@@ -30,13 +30,16 @@ public:
 
         if (node == nullptr)
         {
-            Node newNode = Node(val);
-            node = &newNode;
-            return node;
+            return new Node(val);
         }
-        node->left = insert(val, node->left);
-
-        node->right = insert(val, node->right);
+        if (val < node->value)
+        {
+            node->left = insert(val, node->left);
+        }
+        else if (val > node->value)
+        {
+            node->right = insert(val, node->right);
+        }
         return node;
     }
 
@@ -51,8 +54,8 @@ public:
             return;
         }
         inorder(node->left);
-        cout << node->value;
-        inorder(node->left);
+        cout << node->value << "\n";
+        inorder(node->right);
     }
     void inorder()
     {
@@ -62,7 +65,7 @@ public:
 
 int main()
 {
-    cout << 0;
+    // cout << 0;
     BinaryTree tree = BinaryTree();
     tree.insert(123);
     tree.insert(98);
