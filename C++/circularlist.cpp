@@ -55,6 +55,50 @@ public:
             temp = temp->next;
         } while (temp != head);
     }
+
+    void deletefirst()
+    {
+        Node *node = head;
+        if (node == nullptr)
+        {
+            cout << "empty";
+            return;
+        }
+        if (head == tail)
+        {
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
+        // do
+        // {
+        //     node = node->next;
+        // } while (node != head);
+        tail->next = head->next;
+        head = head->next;
+    }
+
+    void deletenode(int value)
+    {
+        if (head->val == value)
+        {
+            deletefirst();
+            return;
+        }
+
+        Node *node = head;
+
+        do
+        {
+            Node *n = node->next;
+            if (n->val == value)
+            {
+                node->next = n->next;
+                break;
+            }
+            node = node->next;
+        } while (node != head);
+    }
 };
 
 int main()
@@ -64,6 +108,8 @@ int main()
     ll.insert(2);
     ll.insert(3);
     ll.insert(4);
+    ll.deletefirst();
+    ll.deletenode(3);
     ll.display();
 
     return 0;
