@@ -8,9 +8,9 @@ public:
     int val;
     Node *next;
 
-    Node(int val)
+    Node(int val) : val(val)
     {
-        val = val;
+        next = nullptr;
     }
 };
 
@@ -31,13 +31,13 @@ public:
         Node *node = new Node(val);
         if (head == nullptr)
         {
-            node = head;
+            head = node;
             tail = head;
             return;
         }
         tail->next = node;
         node->next = head;
-        head = node;
+        tail = node;
         return;
     }
 
@@ -47,6 +47,7 @@ public:
         if (temp == nullptr)
         {
             cout << "list empty";
+            return;
         }
         do
         {
