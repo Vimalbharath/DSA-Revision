@@ -4,18 +4,22 @@ using namespace std;
 
 class CircularQueue
 {
-public:
-    int data[5];
+protected:
+    int *data;
     int size = 0;
+    int capacity = 5;
     int s = 0;
     int e = 0;
+
+public:
     CircularQueue()
     {
+        data = new int[capacity];
     }
 
     bool isFull()
     {
-        return size == sizeof(data) / sizeof(data[0]);
+        return size == capacity;
     }
 
     bool isEmpty()
@@ -31,7 +35,7 @@ public:
             return false;
         }
         data[e++] = val;
-        e = e % (sizeof(data) / sizeof(data[0]));
+        e = e % (capacity);
         size++;
         return true;
     }
@@ -44,7 +48,7 @@ public:
             return -1;
         }
         int ans = data[s++];
-        s = s % (sizeof(data) / sizeof(data[0]));
+        s = s % (capacity);
         size--;
         return ans;
     }
@@ -53,15 +57,40 @@ public:
     {
         for (int i = s; i < s + size; i++)
         {
-            cout << data[i % (sizeof(data) / sizeof(data[0]))];
+            cout << data[i % (capacity)];
         }
+    }
+};
+
+class DynamicQueue : public CircularQueue
+{
+public:
+    DynamicQueue() : CircularQueue()
+    {
+    }
+    bool insert(int val)
+    {
+        if (isFull())
+        {
+            int oldCapacity = capacity;
+            capacity = capacity * 2;
+            int *temp = new int[capacity];
+            for (int i = 0; i < size; i++)
+            {
+                temp[i] = data[(s + i) % (oldCapacity)];
+            }
+            s = 0;
+            e = size;
+            data = temp;
+        }
+        return CircularQueue::insert(val);
     }
 };
 
 int main()
 {
     cout << "Circular Queue Internal Implementation";
-    CircularQueue q = CircularQueue();
+    DynamicQueue q = DynamicQueue();
     q.insert(1);
     q.insert(2);
     q.deletefirst();
