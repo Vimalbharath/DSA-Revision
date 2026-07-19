@@ -42,16 +42,21 @@ public:
             cout << "Empty";
             return -1;
         }
-        return data[size--];
+        int ans = data[0];
+        for (int i = 0; i < size; i++)
+        {
+            data[i] = data[i + 1];
+        }
+        size--;
+        return ans;
     }
 
     void display()
     {
-        cout << data[0];
-        cout << data[1];
-        cout << data[2];
-        cout << data[3];
-        cout << data[4];
+        for (int i = 0; i < size; i++)
+        {
+            cout << data[i];
+        }
     }
 };
 
@@ -61,7 +66,7 @@ int main()
     CircularQueue q = CircularQueue();
     q.insert(1);
     q.insert(2);
-    q.deletefirst();
+    cout << q.deletefirst();
     q.insert(3);
     q.insert(4);
     q.insert(5);
