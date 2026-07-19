@@ -15,7 +15,7 @@ public:
 
     bool isFull()
     {
-        return size == 5;
+        return size == sizeof(data) / sizeof(data[0]);
     }
 
     bool isEmpty()
@@ -30,7 +30,8 @@ public:
             cout << "Full queue";
             return false;
         }
-        data[size] = val;
+        data[e++] = val;
+        e = e % (sizeof(data) / sizeof(data[0]));
         size++;
         return true;
     }
@@ -42,20 +43,17 @@ public:
             cout << "Empty";
             return -1;
         }
-        int ans = data[0];
-        for (int i = 0; i < size; i++)
-        {
-            data[i] = data[i + 1];
-        }
+        int ans = data[s++];
+        s = s % (sizeof(data) / sizeof(data[0]));
         size--;
         return ans;
     }
 
     void display()
     {
-        for (int i = 0; i < size; i++)
+        for (int i = s; i < s + size; i++)
         {
-            cout << data[i];
+            cout << data[i % (sizeof(data) / sizeof(data[0]))];
         }
     }
 };
@@ -66,10 +64,14 @@ int main()
     CircularQueue q = CircularQueue();
     q.insert(1);
     q.insert(2);
-    cout << q.deletefirst();
+    q.deletefirst();
     q.insert(3);
     q.insert(4);
     q.insert(5);
+    q.deletefirst();
+    q.insert(6);
+    q.insert(7);
+    q.insert(8);
     q.display();
 
     return 0;
