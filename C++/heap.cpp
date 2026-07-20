@@ -16,33 +16,47 @@ public:
     }
     void upheap(int index)
     {
-        int p = (index - 1) / 2;
-        while (v[p] > v[index])
+        while (index > 0)
         {
-            swap(p, index);
-            index = p;
-            p = (index - 1) / 2;
+            int p = (index - 1) / 2;
+            if (v[p] > v[index])
+            {
+                swap(p, index);
+                index = p;
+            }
+            else
+            {
+                break;
+            }
         }
     }
     void downheap(int index)
     {
-        int l = (index * 2) + 1;
-        int r = (index * 2) + 2;
-        while ((v[l] < v[index]) || (v[r] < v[index]))
-        {
-            if (v[l] < v[index])
-            {
-                swap(l, index);
-                index = l;
-            }
-            if (v[r] < v[index])
-            {
-                swap(r, index);
-                index = r;
-            }
 
-            l = (index * 2) + 1;
-            r = (index * 2) + 2;
+        while (index < v.size())
+        {
+            int l = (index * 2) + 1;
+            int r = (index * 2) + 2;
+            int smallest = index;
+            if (l < v.size() && v[l] < v[smallest])
+            {
+
+                smallest = l;
+            }
+            if (r < v.size() && v[r] < v[smallest])
+            {
+
+                smallest = r;
+            }
+            if (smallest != index)
+            {
+                swap(smallest, index);
+                index = smallest;
+            }
+            else
+            {
+                break;
+            }
         }
     }
 
@@ -86,7 +100,8 @@ int main()
     h.insert(1);
     cout << h.pop();
     cout << h.pop();
+    // cout << h.getelement();
     cout << h.pop();
-    // cout << h.pop();
+    cout << h.pop();
     return 0;
 }
